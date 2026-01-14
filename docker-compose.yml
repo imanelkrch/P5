@@ -12,7 +12,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: rootpassword
     volumes:
-      - mongo_db_data:/data/db # Volume pour sauvegarder la base de données
+      - mongo_db_data:/data/db 
 
   #Script de migration
   migration_app:
@@ -21,7 +21,7 @@ services:
     depends_on:
       - mongodb
     volumes:
-      - .:/app # Volume pour le code et le CSV
+      - .:/app 
 
 volumes:
-  mongo_db_data: # Déclaration du volume pour la base
+  mongo_db_data: 
