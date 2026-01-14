@@ -35,6 +35,7 @@ Les opérations CRUD sont réalisées via des scripts Python.
 
 admin_user droit de lecture et d'ecriture pour le script de migration
 viewer: Droit de lecture seule
+dataengineer: lecture et ecriture
 
 ## Exécution
 
@@ -52,6 +53,7 @@ docker exec -it mongodb_container mongosh -u root -p rootpassword --eval "
 db = db.getSiblingDB('MedicalDB');
 db.createUser({user: 'admin_user', pwd: 'adminpassword', roles: [{role: 'readWrite', db: 'MedicalDB'}]});
 db.createUser({user: 'viewer', pwd: 'viewerpassword', roles: [{role: 'read', db: 'MedicalDB'}]});
+db.createUser({user: 'userdeveloper', pwd: 'devpassword', roles: [{role: 'readWrite', db: 'MedicalDB'}]});
 "
 
 ## lancement de la migration
