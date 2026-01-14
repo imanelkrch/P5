@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  #La base de données
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_container
+    ports:
+      - "27017:27017"
+    environment:
+      # Création utilisateur
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    volumes:
+      - mongo_db_data:/data/db # Volume pour sauvegarder la base de données
+
+  #Script de migration
+  migration_app:
+    build: .
+    container_name: script_container
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/app # Volume pour le code et le CSV
+
+volumes:
+  mongo_db_data: # Déclaration du volume pour la base
