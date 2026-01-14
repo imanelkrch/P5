@@ -37,12 +37,6 @@ admin_user droit de lecture et d'ecriture pour le script de migration
 viewer: Droit de lecture seule
 dataengineer: lecture et ecriture
 
-## Exécution
-
-```bash
-python3 src/migrate.py
-```
-
 ## Execution Docker
 
 docker compose up -d
