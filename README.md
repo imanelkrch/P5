@@ -31,8 +31,33 @@ Des tests automatisés vérifient la cohérence entre le CSV et MongoDB.
 
 Les opérations CRUD sont réalisées via des scripts Python.
 
+## Sécurité et Rôles
+
+admin_user droit de lecture et d'ecriture pour le script de migration
+viewer: Droit de lecture seule
+
 ## Exécution
 
 ```bash
 python3 src/migrate.py
 ```
+
+## Execution Docker
+
+docker compose up -d
+
+## initialiser les utilisateurs
+
+docker exec -it mongodb_container mongosh -u root -p rootpassword --eval "
+db = db.getSiblingDB('MedicalDB');
+db.createUser({user: 'admin_user', pwd: 'adminpassword', roles: [{role: 'readWrite', db: 'MedicalDB'}]});
+db.createUser({user: 'viewer', pwd: 'viewerpassword', roles: [{role: 'read', db: 'MedicalDB'}]});
+"
+
+## lancement de la migration
+
+docker compose up --build migration_app
+
+## Test et verification :
+
+docker exec -it mongodb_container mongosh -u viewer -p viewerpassword --authenticationDatabase MedicalDB MedicalDB --eval "db.patients.countDocuments()"
